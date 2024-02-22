@@ -31,3 +31,13 @@ jobs:
 
       - name: Get Gradle Version
         run: echo "GRADLE_VERSION=$(./gradlew properties | grep 'version:' | cut -d\' -f2)" >> $GITHUB_ENV
+      - name: Fetch versionCode and versionName
+        run:
+            echo "VERSION_CODE=$(grep versionCode app/build.gradle | awk '{print $2}')" >> $GITHUB_ENV
+            echo "VERSION_NAME=$(grep versionName app/build.gradle | awk -F '"' '{print $2}')" >> $GITHUB_ENV
+
+      - name: Use versionCode and versionName
+        run: 
+            echo "Version Code: $VERSION_CODE"
+            echo "Version Name: $VERSION_NAME"
+
