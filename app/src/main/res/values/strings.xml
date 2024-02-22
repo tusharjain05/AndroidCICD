@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Standalone News Apllication</string>
+    <string name="hello_world">From the Square world,\nHello, %1$s!</string>
+    <string name="prefix_author">Author: %1$s</string>
+    <string name="prefix_title">Title: %1$s</string>
+    <string name="prefix_description">Description: %1$s</string>
+    <string name="login_validation">Username and password cannot be empty</string>
+    <string name="login_error">Invalid credentials. Please try again.</string>
+    <string name="error">An error occurred. Please try again later.</string>
+    <string name="logout_confirmation">Are you sure you want to logout?</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+    <string name="notification_permission">Notification permission is required.</string>
+    <string name="location_permission">Location permission is required to start the service.</string>
+    <string name="open_map">Open Google Map</string>
+    <string name="open_list">Open App List.</string>
+
+
+</resources>
