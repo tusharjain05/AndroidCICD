@@ -26,5 +26,8 @@ jobs:
       - name : Upload a Build Artifact
         uses : actions/upload-artifact@v4.3.1
         with :
-          name: WatchApplication.apk
+          name: WatchApplication-${{ env.GRADLE_VERSION }}.apk
           path: app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Get Gradle Version
+        run: echo "GRADLE_VERSION=$(./gradlew properties | grep 'version:' | cut -d\' -f2)" >> $GITHUB_ENV
