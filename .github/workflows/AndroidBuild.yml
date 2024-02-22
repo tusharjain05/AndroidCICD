@@ -10,4 +10,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      -
+      - name : Checkout
+        uses : actions/checkout@v4.1.1
+
+      - name : Setup Java JDK
+        uses : actions/setup-java@v4.0.0
+
+      - name : Build with Gradle
+        run : ./gradlew build
+
+      - name : Upload a Build Artifact
+        uses : actions/upload-artifact@v4.3.1
+        with :
+          name: WatchApplication.apk
+          path: app/build/outputs/app/app_debug.apk
