@@ -48,6 +48,7 @@ public class LoginActivity extends ComponentActivity {
     private static final String TAG = "Notification Permission";
 
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +90,7 @@ public class LoginActivity extends ComponentActivity {
         loginViewModel.getLoginSuccessful().observe(this, loginSuccessful -> {
             if (loginSuccessful) {
                 saveLoginSession();
+                Toast.makeText(LoginActivity.this,"Login Successfull", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();

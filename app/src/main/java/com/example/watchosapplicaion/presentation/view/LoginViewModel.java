@@ -1,26 +1,24 @@
 package com.example.watchosapplicaion.presentation.view;
 
 import android.app.Application;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.watchosapplicaion.R;
 import com.example.watchosapplicaion.presentation.model.LoginRequest;
 import com.example.watchosapplicaion.presentation.model.LoginResponse;
 import com.example.watchosapplicaion.presentation.network.AppRepo;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
 /**
@@ -50,10 +48,15 @@ public class LoginViewModel extends AndroidViewModel {
     private final MutableLiveData<String> errorResponse = new MutableLiveData<>();
     private final AppRepo mAppRepo;
 
+    private final Scheduler ioScheduler;
+    private final Scheduler mainThreadScheduler;
+
     @Inject
-    public LoginViewModel(@NonNull Application application, AppRepo appRepo) {
+    public LoginViewModel(@NonNull Application application, AppRepo appRepo, @Named("ioScheduler") Scheduler ioScheduler,@Named("mainThreadScheduler") Scheduler mainThreadScheduler) {
         super(application);
         this.mAppRepo = appRepo;
+        this.ioScheduler = ioScheduler;
+        this.mainThreadScheduler = mainThreadScheduler;
     }
 
     /**
@@ -92,8 +95,8 @@ public class LoginViewModel extends AndroidViewModel {
     public void loginUser(String username, String password) {
         isLoading.setValue(true);
         Disposable disposable = mAppRepo.loginUser(new LoginRequest(username, password))
-                .subscribeOn(Schedulers.io()) // Perform API call on IO (background) thread.
-                .observeOn(AndroidSchedulers.mainThread()) // Observe API call result on the main thread.
+                .subscribeOn(ioScheduler) // Perform API call on IO (background) thread.
+                .observeOn(mainThreadScheduler) // Observe API call result on the main thread.
                 .subscribeWith(new DisposableSingleObserver<LoginResponse>() {
                     @Override
                     public void onSuccess(LoginResponse loginResponse) {

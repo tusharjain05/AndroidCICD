@@ -14,7 +14,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.Looper;
-import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;

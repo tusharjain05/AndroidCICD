@@ -19,6 +19,13 @@ jobs:
           java-version : '17'
           distribution : 'adopt'
 
+
+      - name: Get Gradle Version
+        uses: KyoriPowered/get-gradle-versions@v2.0.0
+
+      - name: Run Unit Tests
+        run: ./gradlew test
+
       - name : Build with Gradle
         run : ./gradlew build
 
@@ -28,7 +35,6 @@ jobs:
           name: WatchApplication-${{ env.GRADLE_VERSION }}.apk
           path: app/build/outputs/apk/debug/app-debug.apk
 
-      - name: Get Gradle Version
-        uses: KyoriPowered/get-gradle-versions@v2.0.0
+
 
 

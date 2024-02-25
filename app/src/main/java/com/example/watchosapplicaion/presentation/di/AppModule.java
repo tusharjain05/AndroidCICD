@@ -3,7 +3,6 @@ package com.example.watchosapplicaion.presentation.di;
 import com.example.watchosapplicaion.presentation.network.APIServices;
 import com.example.watchosapplicaion.presentation.network.LoginAPIService;
 
-
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
@@ -12,9 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
@@ -23,6 +20,9 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -132,5 +132,17 @@ public class AppModule {
     @Provides
     public LoginAPIService provideLoginAPIService(@Named("LoginRetrofit") Retrofit retrofit) {
         return retrofit.create(LoginAPIService.class);
+    }
+
+    @Provides
+    @Named("ioScheduler")
+    public Scheduler provideIoScheduler() {
+        return Schedulers.io();
+    }
+
+    @Provides
+    @Named("mainThreadScheduler")
+    public Scheduler provideMainThreadScheduler() {
+        return AndroidSchedulers.mainThread();
     }
 }
