@@ -30,8 +30,14 @@ jobs:
         run: ./gradlew build
 
       - name: Set APK Name
-        run: echo "APK_NAME=$(echo ${{ github.ref_name }}).apk" >> $GITHUB_ENV
-
+        run: |
+          if [ "${{ github.ref_name }}" == "main" ]; then
+            echo "APK_NAME=development_standalone_watch_application.apk" >> $GITHUB_ENV
+          elif [ "${{ github.ref_name }}" == "uat" ]; then
+            echo "APK_NAME=testing_standalone_watch_application.apk" >> $GITHUB_ENV
+          elif [ "${{ github.ref_name }}" == "master" ]; then
+            echo "APK_NAME=release_standalone_watch_application.apk" >> $GITHUB_ENV
+          fi
       - name: Development APK
         if: github.ref == 'refs/heads/main'
         run: echo "Development APK build process"
