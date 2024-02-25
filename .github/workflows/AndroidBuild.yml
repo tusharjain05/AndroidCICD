@@ -31,8 +31,4 @@ jobs:
       - name: Get Gradle Version
         uses: KyoriPowered/get-gradle-versions@v2.0.0
 
-      - name: Use versionCode and versionName
-        run: 
-            echo "Version Code: $VERSION_CODE"
-            echo "Version Name: $VERSION_NAME"
 
