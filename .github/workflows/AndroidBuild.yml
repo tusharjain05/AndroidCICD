@@ -5,7 +5,6 @@ on:
   push:
     branches: [ master, main, uat ]
 
-
 jobs:
   build:
     runs-on: ubuntu-latest
