@@ -23,7 +23,7 @@ jobs:
         uses: KyoriPowered/get-gradle-versions@v2.0.0
 
       - name: Run Unit Tests
-        run: ./gradlew test
+        run: ./gradlew connectedAndroidTest
 
       - name: Build with Gradle
         run: ./gradlew build
