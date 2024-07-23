@@ -43,21 +43,21 @@ jobs:
           adb shell settings put global window_animation_scale 0 &
           adb shell settings put global transition_animation_scale 0 &
           adb shell settings put global animator_duration_scale 0 &
-        timeout-minutes: 5
+        timeout-minutes: 60
 
       - name: Run tests
         run: ./gradlew connectedDebugAndroidTest
 
-      - name: Store test results
-        if: always()
-        run: mkdir -p artifacts && cp -r app/build/reports/androidTests/connected/* artifacts/
+      # - name: Store test results
+      #   if: always()
+      #   run: mkdir -p artifacts && cp -r app/build/reports/androidTests/connected/* artifacts/
 
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: android-test-results
-          path: artifacts/
+      # - name: Upload test results
+      #   if: always()
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: android-test-results
+      #     path: artifacts/
 
       - name: Build with Gradle
         run: ./gradlew build
