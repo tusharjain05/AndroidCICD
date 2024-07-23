@@ -45,6 +45,15 @@ jobs:
           adb shell settings put global animator_duration_scale 0 &
         timeout-minutes: 60
 
+      - name: Wait for Emulator to be Ready
+        run: |
+          boot_completed=""
+          until [ "$boot_completed" = "1" ]; do
+            boot_completed=$(adb shell getprop sys.boot_completed 2>&1)
+            sleep 1
+          done
+          echo "Emulator is ready"
+
       - name: Run tests
         run: ./gradlew connectedDebugAndroidTest
 
