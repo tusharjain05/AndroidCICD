@@ -51,4 +51,4 @@ public class LoginActivityTest {
 
         // This example assumes a TextView with a success message is shown in the LoginActivity upon successful login.
         //intended(hasComponent(MainActivity.class.getName()));    }
-}
+}}
