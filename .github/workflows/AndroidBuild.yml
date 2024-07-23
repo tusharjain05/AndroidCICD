@@ -31,14 +31,14 @@ jobs:
         run: sdkmanager "emulator"
 
       - name: Install System Image
-        run: sdkmanager "system-images;android-30;google_apis;x86_64"
+        run: sdkmanager "system-images;android-30;google_apis;x86"
 
       - name: Create AVD
-        run: echo "no" | avdmanager create avd -n test -k "system-images;android-30;google_apis;x86_64" --force
+        run: echo "no" | avdmanager create avd -n test -k "system-images;android-30;google_apis;x86" --force
 
       - name: Start Emulator
         run: |
-          $ANDROID_HOME/emulator/emulator -avd test -no-window -no-audio -no-boot-anim &
+          $ANDROID_HOME/emulator/emulator -avd test -no-window -no-audio -no-boot-anim -accel off &
           adb wait-for-device
           adb shell settings put global window_animation_scale 0 &
           adb shell settings put global transition_animation_scale 0 &
